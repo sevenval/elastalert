@@ -8,7 +8,7 @@ import re
 import dateutil.parser
 import dateutil.tz
 from auth import Auth
-from . import ElasticSearchClient
+from es_client import ElasticSearchClient
 from six import string_types
 
 logging.basicConfig()
