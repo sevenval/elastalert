@@ -10,7 +10,7 @@ import dateutil.parser
 import pytz
 from six import string_types
 
-from . import ElasticSearchClient
+from .esclient import ElasticSearchClient
 from .auth import Auth
 
 logging.basicConfig()
