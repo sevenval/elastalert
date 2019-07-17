@@ -1514,7 +1514,10 @@ class ElastAlerter(object):
                 self.handle_error('Error while running alert %s: %s' % (alert.get_info()['type'], e), {'rule': rule['name']})
                 alert_exception = str(e)
             else:
-                self.thread_data.alerts_sent += 1
+                try:
+                    self.thread_data.alerts_sent += 1
+                except:
+                    self.thread_data.alerts_sent = 1
                 alert_sent = True
 
         # Write the alert(s) to ES
