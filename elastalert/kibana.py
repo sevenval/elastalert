@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
 import os.path
-import urllib.error
-import urllib.parse
-import urllib.request
+#import urllib.error
+#import urllib.parse
+#import urllib.request
+import urllib
 
 from .util import EAException
 
@@ -284,5 +285,5 @@ def filters_from_dashboard(db):
 def kibana4_dashboard_link(dashboard, starttime, endtime):
     dashboard = os.path.expandvars(dashboard)
     time_settings = kibana4_time_temp % (starttime, endtime)
-    time_settings = urllib.parse.quote(time_settings)
+    time_settings = urllib.quote(time_settings)
     return "%s?_g=%s" % (dashboard, time_settings)
