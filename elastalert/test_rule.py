@@ -14,13 +14,13 @@ import sys
 
 import mock
 
-from elastalert.config import load_conf
-from elastalert.elastalert import ElastAlerter
-from elastalert.util import EAException
-from elastalert.util import elasticsearch_client
-from elastalert.util import lookup_es_key
-from elastalert.util import ts_now
-from elastalert.util import ts_to_dt
+from .elastalert.config import load_conf
+from .elastalert.elastalert import ElastAlerter
+from .elastalert.util import EAException
+from .elastalert.util import elasticsearch_client
+from .elastalert.util import lookup_es_key
+from .elastalert.util import ts_now
+from .elastalert.util import ts_to_dt
 
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger('elasticsearch').setLevel(logging.WARNING)
