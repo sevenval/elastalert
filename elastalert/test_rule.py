@@ -429,6 +429,12 @@ class MockElastAlerter(object):
 
         rule_yaml = load_rule_yaml(args.file)
 
+        # Set arguments that ElastAlerter needs
+        args.verbose = args.alert
+        args.debug = not args.verbose
+        args.es_debug = False
+        args.es_debug_trace = False
+
         conf = self.load_conf(rule_yaml, args)
 
         if args.json:
