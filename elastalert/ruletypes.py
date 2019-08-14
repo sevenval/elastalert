@@ -551,6 +551,7 @@ class SpikeRule(RuleType):
 class FlatlineRule(FrequencyRule):
     """ A rule that matches when there is a low number of events given a timeframe. """
     required_options = frozenset(['timeframe', 'threshold'])
+    has_been_above = {}
 
     def __init__(self, *args):
         super(FlatlineRule, self).__init__(*args)
@@ -575,7 +576,14 @@ class FlatlineRule(FrequencyRule):
 
         # Match if, after removing old events, we hit num_events
         count = self.occurrences[key].count()
+
+        if count >= self.rules['threshold']:
+            self.has_been_above[key] = True
+
         if count < self.rules['threshold']:
+            if self.rules.get('back_to_normal'):
+                if not self.has_been_above.get(key):
+                    return
             # Do a deep-copy, otherwise we lose the datetime type in the timestamp field of the last event
             event = copy.deepcopy(self.occurrences[key].data[-1][0])
             event.update(key=key, count=count)
@@ -592,6 +600,7 @@ class FlatlineRule(FrequencyRule):
                 # Forget about this key until we see it again
                 self.first_event.pop(key)
                 self.occurrences.pop(key)
+            self.has_been_above[key] = False
 
     def get_match_str(self, match):
         ts = match[self.rules['timestamp_field']]
